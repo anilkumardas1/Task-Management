@@ -74,11 +74,18 @@ export default function AuthForm() {
             }
 
         } else {
-            const resp = await authFormData?.postRequestData('/register', formData);
-            console.log(resp);
 
-            toast.success(resp?.message);
-            setIsLogin(true);
+            try {
+                const resp = await authFormData?.postRequestData('/register', formData);
+                console.log(resp);
+
+                toast.success(resp?.message);
+                setIsLogin(true);
+            } catch (error) {
+                console.log(error);
+                toast.error(error?.response?.data?.message || error?.message)
+            }
+
 
         }
 
